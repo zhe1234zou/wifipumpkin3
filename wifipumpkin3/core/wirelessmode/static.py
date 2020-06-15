@@ -222,7 +222,7 @@ class StaticSettings(CoreSettings):
         self.ifaceHostapd = self.conf.get("accesspoint", "interface")
         # check if interface has been support AP mode (necessary for hostapd)
         if self.conf.get("accesspoint", "check_support_ap_mode", format=bool):
-            if not "AP" in self.get_supported_interface(self.ifaceHostapd)["Supported"]:
+            if not "AP" or "AP\\n" in self.get_supported_interface(self.ifaceHostapd)["Supported"]:
                 raise ApModeSupportError(
                     "[Error] AP mode", "{} ap mode not found!".format(self.ifaceHostapd)
                 )
